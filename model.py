@@ -24,7 +24,7 @@ def get_lists_of_dtypes(df):
     return strings, integers, floats
 
 def yn_recode(s):
-    """Helper function to help recode 'yes' to 1 and 'no' to 0"""
+    """Helper function to recode 'yes' to 1 and 'no' to 0"""
     if s.lower() == "yes":
         return 1
     elif s.lower() == "no":
@@ -32,20 +32,21 @@ def yn_recode(s):
     else:
         return np.nan
 
-def prep_data(df):      
-    drop_cols = ["AgeHH1", "AgeHH2", "NewCellphoneUser", "NotNewCellphoneUser", 
-                 "CustomerID", "HandsetPrice", "ServiceArea", "RetentionOffersAccepted"]
+def prep_data(df):     
+	"""Helper function to do basic feature engineering for training and input data""" 
+	drop_cols = ["AgeHH1", "AgeHH2", "NewCellphoneUser", "NotNewCellphoneUser", 
+	"CustomerID", "HandsetPrice", "ServiceArea", "RetentionOffersAccepted"]
     
-    df = df.drop(columns=drop_cols).dropna()
+	df = df.drop(columns=drop_cols).dropna()
     
-    my_str, my_int, my_flo = get_lists_of_dtypes(df)
+	my_str, my_int, my_flo = get_lists_of_dtypes(df)
     
-    df = pd.get_dummies(df, columns=my_str, drop_first=True)
-    return df
+	df = pd.get_dummies(df, columns=my_str, drop_first=True)
+	return df
         
 
 def churn_prob(data_dict):
-    
+    """Function trains model and scored input data based on trained model"""
     chdata = pd.read_csv("churn_data.csv")
     chdata = prep_data(chdata)     
     chdata["Churn"] = chdata["Churn"].apply(yn_recode)
