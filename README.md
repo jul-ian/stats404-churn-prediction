@@ -27,3 +27,10 @@ promotions or increased marketing.
 
 Metric:
 F-score will be used to ascertain if the model is a good fit.
+
+Architecture:
+The data architecture is stream processing currently. It could also be changed to batch processing.
+
+![Training](training_diag.png)
+
+![Scoring](scoring_diag.png)
