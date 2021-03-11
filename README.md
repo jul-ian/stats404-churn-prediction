@@ -63,13 +63,8 @@ Input/Output Spec:
  
  Tests:
  
- ![Unit](unit_test.png)
- 
- 
- ![Integration](integration_test.png)
- 
+ ![Unit and Integration](tests.png)
  
  ![Coverage](unit_cov.png)
- 
  
  ![Coverage](integration_cov.png)
