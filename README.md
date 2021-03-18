@@ -2,7 +2,7 @@ Predicting Customer Churn
 
 Statement of Problem:
 The business problem to be analyzed is the customer churn of a telecom company. The "churn" of customers is the
-number or percentage of customers that cease using the service in a given time frame. 
+number or percentage of customers that cease using the service in a given time frame.
 
 Client:
 The telecommunications company Cell2Cell
@@ -17,7 +17,7 @@ https://www.kaggle.com/jpacse/datasets-for-churn-telecom
 
 Business Impact of Work:
 We want to minimize the churn rate since this has a large impact on revenue. According to the dataset, 
-14,711 customers churned over the month the data covers, costing the company about $849,105.00 in monthly revenue. 
+14,711 customers churned over the month the data covers, costing the company about $849,10.00 in monthly revenue. 
 Even if a small percentage (say 20%) of this is prevented, it is still a sizable increase in monthly revenue.
 
 How business will use model:
