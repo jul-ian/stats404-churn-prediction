@@ -37,12 +37,12 @@ The data architecture is stream processing currently. It could also be changed t
 
  # Input/Output Spec: #
  
- The inputs for the model can be provided in json form and the output will be provided as json as well. The output will be a json object of the form {"churn_probability":[p1]} where p1 is the probability of the customer with the inputted characteristics churning.
- A sample input/output is the following:
- Input:
- {"MonthlyRevenue": 49.99, "MonthlyMinutes": 650.0, "TotalRecurringCharge": 50.0, "MonthsInService": 53}
- Output:
- {"churn_probability": [0.34538811445236206]}
+ The inputs for the model can be provided in json form and the output will be provided as json as well. The output will be a json object of the form {"churn_probability":[p1]} where p1 is the probability of the customer with the inputted characteristics churning.  
+ A sample input/output is the following:  
+ Input:  
+ {"MonthlyRevenue": 49.99, "MonthlyMinutes": 650.0, "TotalRecurringCharge": 50.0, "MonthsInService": 53}  
+ Output:  
+ {"churn_probability": [0.34538811445236206]}  
  
  The previous input only includes a small subset of the features the model was trained on. A more detailed input is as follows, which includes all of the models features:
  
@@ -63,23 +63,23 @@ The data architecture is stream processing currently. It could also be changed t
  
  # Instructions for Use: #
  
- The program was developed and run using Python 3.8.3 and Anaconda 4.9.2. There are currently two methods to use the model.
+ The program was developed and run using Python 3.8.3 and Anaconda 4.9.2. There are currently two methods to use the model.  
  
  ## Docker/Flask: ##
- To use the Docker version, there is a container provided called "xgb". One would have to cd to this directory and execute the following series of commands:
+ To use the Docker version, there is a container provided called "xgb". One would have to cd to this directory and execute the following series of commands:  
  
- docker build -t xgb .
- docker run -d -p 5000:5000 xgb
- curl --location --request POST 'http://localhost:5000/predict' --header 'Content-Type: application/json' --data-raw \
-'{"MonthlyRevenue": 49.99, "MonthlyMinutes": 650.0, "TotalRecurringCharge": 50.0, "MonthsInService": 53}'
+ docker build -t xgb .  
+ docker run -d -p 5000:5000 xgb  
+ curl --location --request POST 'http://localhost:5000/predict' --header 'Content-Type: application/json' --data-raw \  
+'{"MonthlyRevenue": 49.99, "MonthlyMinutes": 650.0, "TotalRecurringCharge": 50.0, "MonthsInService": 53}'  
 
- This would recreate the output specified in the input/output spec. Note that the --data-raw argument can be modified to include any of the subset of features the model was trained on, which are denoted in the second sample input in the spec.
- Also note that the curl command is split over two rows due to length (not necessary).
+ This would recreate the output specified in the input/output spec. Note that the --data-raw argument can be modified to include any of the subset of features the model was trained on, which are denoted in the second sample input in the spec.  
+ Also note that the curl command is split over two rows due to length (not necessary).   
  
  ## Running Python Script: ##
- In the directory, there is a python script called "get_prediction.py". One can simply enter the following command:
+ In the directory, there is a python script called "get_prediction.py". One can simply enter the following command:  
  
- python3 get_prediciton.py
+ python3 get_prediciton.py  
  
  This will print the output to the console. Currently, the script is configured with the same input as is being passed to the data_raw argument of curl above. This can be changed by going into the script. The "requirements.txt" file has all the packages needed to execute the script.
  
