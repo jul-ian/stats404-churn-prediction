@@ -47,7 +47,7 @@ def xgb_predict():
 	
 	result = {"Churn_Probability" :list(df_req["prob"])}
 	
-	return jsonify(result)
+	return result
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', debug=True)

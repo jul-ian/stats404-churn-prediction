@@ -1,4 +1,3 @@
-## Importing libraries to be used and data
 import numpy as np
 import pandas as pd
 import xgboost as xgb
@@ -49,10 +48,10 @@ def prep_data(df):
         
 
 def churn_prob(data_dict, xgb_mod):
-    """Function trains model and scored input data based on trained model"""
-    
-    test_df = pd.DataFrame(data_dict, index=[0])
-    test_df = prep_data(test_df)
+	"""Function trains model and scored input data based on trained model"""
+	
+	test_df = pd.DataFrame(data_dict, index=[0])
+	test_df = prep_data(test_df)
     
 	train_cols = xgb_mod.get_booster().feature_names
 	mis_col = list(set(train_cols) - set(test_df.columns))
@@ -60,19 +59,29 @@ def churn_prob(data_dict, xgb_mod):
 		for col in mis_col:
 			test_df[col] = np.nan
 		test_df = test_df[train_cols]
-	
-    y_pred_xg = xgb_mod.predict(test_df)
+		
+	y_pred_xg = xgb_mod.predict(test_df)
     
-    test_df["prob"] = xgb_mod.predict_proba(test_df)[:, 1]
+	test_df["prob"] = xgb_mod.predict_proba(test_df)[:, 1]
     
-    return {"churn_probability":list(test_df["prob"])}
+	return {"churn_probability":list(test_df["prob"])}
 
 
 if __name__ == "__main__":
-
-    my_input = {"MonthlyRevenue": 49.99, "MonthlyMinutes": 650.0, "TotalRecurringCharge": 50.0, "MonthsInService": 53}
 	
-	#my_model = 
+	import s3fs
+	import joblib
+	
+	## Same input used in the Docker container
+	my_input = {"MonthlyRevenue": 49.99, "MonthlyMinutes": 650.0, "TotalRecurringCharge": 50.0, "MonthsInService": 53}
+	
+	s3_fs = s3fs.S3FileSystem(anon=False)
+	bucket_name = "stats404-project-ja"
+	key_name = "xgb_model.joblib"
+	
+	with s3_fs.open(f"{bucket_name}/{key_name}","rb") as file:
+		my_model = joblib.load(file)
     
-    my_prob = churn_prob(my_input, my_model)
-    print(my_prob)
+	my_pred = churn_prob(my_input, my_model)
+	
+	print(my_pred)
